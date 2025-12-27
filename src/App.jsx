@@ -1,11 +1,20 @@
 import './App.css'
+import Footer from './components/footer/Footer'
+import Navbar from './components/navbar/Navbar'
 
 function App() {
 
   return (
-    <>
-      <h1>Hello</h1>
-    </>
+    <div className='min-h-screen w-full flex flex-col'>
+      <Navbar/>
+
+      <div className='flex-1 py-10'>
+
+      </div>
+
+      <Footer/>
+
+    </div>
   )
 }
 
