@@ -1,4 +1,5 @@
 import './App.css'
+import EmployeePopup from './components/employeePopup/EmployeePopup'
 import Employees from './components/employees/Employees'
 import Footer from './components/footer/Footer'
 import Navbar from './components/navbar/Navbar'
@@ -7,6 +8,7 @@ function App() {
 
   return (
     <div className='min-h-screen w-full flex flex-col'>
+      <EmployeePopup/>
       <Navbar/>
 
       <div className='flex-1 py-10'>
