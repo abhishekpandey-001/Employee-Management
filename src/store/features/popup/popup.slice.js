@@ -15,11 +15,19 @@ export const popupSlice = createSlice({
 
     closeEmployeePopup: (state, action)=>{
         state.employeePopup = false;
+    },
+
+    openDeletePopup: (state, action)=>{
+      state.deletePopup = action.payload ?? true;
+    },
+
+    closeDeletePopup: (state, action)=>{
+      state.deletePopup = false;
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { openEmployeePopup, closeEmployeePopup } = popupSlice.actions
+export const { openEmployeePopup, closeEmployeePopup, openDeletePopup, closeDeletePopup } = popupSlice.actions
 
 export default popupSlice.reducer

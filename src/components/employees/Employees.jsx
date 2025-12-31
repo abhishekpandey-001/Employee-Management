@@ -1,37 +1,41 @@
 import Layout from '../layout/Layout'
 import { CiEdit } from 'react-icons/ci'
 import { MdOutlineDelete } from 'react-icons/md'
+import { useDispatch, useSelector } from 'react-redux'
+import { openDeletePopup, openEmployeePopup } from '../../store/features/popup/popup.slice'
 
 const Employees = () => {
+
+    const employeesDetails = useSelector(state=>state.employee.employees)
     return (
         <Layout>
             <ul className="list bg-base-100 rounded-box shadow-md">
-                <EmployeeCard />
-                <EmployeeCard />
-                <EmployeeCard />
-                <EmployeeCard />
-                <EmployeeCard />
+                {employeesDetails.map((details)=>(
+                    <EmployeeCard details = {details} key={details.id}/>
+                ))}
             </ul>
         </Layout>
     )
 }
 
 
-const EmployeeCard = () => {
+const EmployeeCard = ({details}) => {
+
+    const dispatch = useDispatch();
     return (
         <li className="list-row">
-            <div><img className="size-10 rounded-box" src="https://img.daisyui.com/images/profile/demo/1@94.webp" /></div>
+            <div><img className="size-10 rounded-box" src={details.profileUrl} /></div>
             <div>
-                <div>Dio Lupa</div>
-                <div className="text-xs uppercase font-semibold opacity-60">Remaining Reason</div>
+                <div>{details.name}</div>
+                <div className="text-xs uppercase font-semibold opacity-60">{details.email}</div>
             </div>
             <p className="list-col-wrap text-xs">
-                "Remaining Reason" became an instant hit, praised for its haunting sound and emotional depth. A viral performance brought it widespread recognition, making it one of Dio Lupa’s most iconic tracks.
+                {details.bio}
             </p>
-            <button className="btn btn-square btn-ghost">
+            <button className="btn btn-square btn-ghost" onClick={()=>dispatch(openEmployeePopup())}>
                 <CiEdit className='text-xl' />
             </button>
-            <button className="btn btn-square btn-ghost">
+            <button className="btn btn-square btn-ghost" onClick={()=>dispatch(openDeletePopup())}>
                 <MdOutlineDelete className='text-xl' />
             </button>
             <button className="btn btn-square btn-ghost">
