@@ -1,14 +1,35 @@
 import {useDispatch, useSelector} from 'react-redux'
 import { closeEmployeePopup } from '../../store/features/popup/popup.slice';
+import { useState } from 'react';
+import { postEmployee } from '../../store/features/employee/employee.thunk';
 
 const EmployeePopup = () => {
+    const [formDetails, setFormDetails] = useState({
+        profileUrl: '',
+        bio: '',
+        name: '',
+        email: '',
+        highlight: false
+    })
+    
 
     const popup = useSelector(state=>state.popup.employeePopup);
     const dispatch = useDispatch()
 
     if(!popup) return null;
 
-    
+    const handleInputChange = (e)=>{
+        const {name, value} = e.target;
+        setFormDetails({
+            ...formDetails,
+            [name]: value
+        })
+    }
+
+    const handleSubmit = async ()=>{
+        await dispatch(postEmployee(formDetails));
+        dispatch(closeEmployeePopup());
+    }
 
 
     return (
@@ -17,18 +38,18 @@ const EmployeePopup = () => {
                 <legend className="fieldset-legend">Employee Detaiils</legend>
 
                 <label className="label">Profile URL</label>
-                <input type="text" className="input" placeholder="Profile URL" />
+                <input type="text" className="input" placeholder="Profile URL" name='profileUrl' onChange={handleInputChange}/>
 
                 <label className="label">Name</label>
-                <input type="text" className="input" placeholder="Name" />
+                <input type="text" className="input" placeholder="Name" name='name' onChange={handleInputChange}/>
 
                 <label className="label">Email</label>
-                <input type="email" className="input" placeholder="Email" />
+                <input type="email" className="input" placeholder="Email" name='email' onChange={handleInputChange} />
 
                 <label className='label'>Bio</label>
-                <textarea className='textarea h-24' placeholder='Bio'></textarea>
+                <textarea className='textarea h-24' placeholder='Bio' name='bio' onChange={handleInputChange}></textarea>
 
-                <button className='btn btn-neutral mt-4'>Submit</button>
+                <button onClick={handleSubmit} className='btn btn-neutral mt-4'>Submit</button>
             </fieldset>
         </div>
     )
