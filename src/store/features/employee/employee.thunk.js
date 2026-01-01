@@ -14,7 +14,6 @@ export const getEmployees = createAsyncThunk(
   }
 );
 
-
 //Writing the logic for the posting of the data, similarly, we will write for the deletion of the data...
 
 export const postEmployee = createAsyncThunk(
@@ -22,6 +21,35 @@ export const postEmployee = createAsyncThunk(
   async (details, { rejectWithValue, dispatch }) => {
     try {
       const response = await api.post("employee", details);
+      dispatch(getEmployees());
+      return response.data;
+    } catch (error) {
+      return rejectWithValue("Something went wrong");
+    }
+  }
+);
+
+// Logic for deleting the data/user profile
+
+export const deleteEmployee = createAsyncThunk(
+  "employee/deleteEmployee",
+  async (id, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await api.delete(`employee/${id}`);
+      dispatch(getEmployees());
+      return response.data;
+    } catch (error) {
+      return rejectWithValue("Something went wrong");
+    }
+  }
+);
+
+//Logic for updating employee
+export const updateEmployee = createAsyncThunk(
+  "employee/deleteEmployee",
+  async ({id, details}, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await api.put(`employee/${id}`, details);
       dispatch(getEmployees());
       return response.data;
     } catch (error) {
