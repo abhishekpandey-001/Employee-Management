@@ -46,7 +46,7 @@ export const deleteEmployee = createAsyncThunk(
 
 //Logic for updating employee
 export const updateEmployee = createAsyncThunk(
-  "employee/deleteEmployee",
+  "employee/updateEmployee",
   async ({id, details}, { rejectWithValue, dispatch }) => {
     try {
       const response = await api.put(`employee/${id}`, details);
